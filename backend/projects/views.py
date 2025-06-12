@@ -21,21 +21,21 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
 class GitHubProjects(View):
     def get(self, request):
-        username = 'AhmedBerkat'  # Replace with your GitHub username
+        username = 'AhmedBerkat'  # mon compte
         url = f'https://api.github.com/users/{username}/repos'
         response = requests.get(url)
         
         if response.status_code == 200:
             repos = response.json()
             for repo in repos:
-                if not repo['fork']:  # Exclude forks
+                if not repo['fork']:  
                     Project.objects.update_or_create(
                         github_url=repo['html_url'],
                         defaults={
                             'title': repo['name'],
                             'description': repo['description'] or 'No description',
                             'technologies': repo.get('language', 'Unknown'),
-                            'image_url': None,  # Add a placeholder or fetch repo image if available
+                            'image_url': None,  
                         }
                     )
             projects = Project.objects.all()
