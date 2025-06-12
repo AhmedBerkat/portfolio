@@ -11,7 +11,7 @@ const Home = () => {
     axios
       .get('http://localhost:8000/projects/')
       .then((response) => {
-        console.log('Fetched projects:', response.data); // Add this line
+        console.log('Fetched projects:', response.data); 
         setProjects(response.data);
         setLoading(false);
       })
